@@ -401,6 +401,10 @@ class RequestChannel(val queueSize: Int,
     response: AbstractResponse,
     onComplete: Option[Send => Unit]
   ): Unit = {
+
+    val apiKey = response.apiKey()
+    val stringyResponse = response.toString()
+    trace(s"EVENT-HUBS: $apiKey $stringyResponse")
     updateErrorMetrics(request.header.apiKey, response.errorCounts.asScala)
     sendResponse(new RequestChannel.SendResponse(
       request,
