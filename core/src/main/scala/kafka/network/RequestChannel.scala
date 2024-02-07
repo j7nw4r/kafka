@@ -404,7 +404,8 @@ class RequestChannel(val queueSize: Int,
 
     val apiKey = response.apiKey()
     val stringyResponse = response.toString()
-    trace(s"EVENT-HUBS: $apiKey $stringyResponse")
+    val clientId = request.header.clientId()
+    trace(s"EVENT-HUBS: (clientId: $clientId) $apiKey $stringyResponse")
     updateErrorMetrics(request.header.apiKey, response.errorCounts.asScala)
     sendResponse(new RequestChannel.SendResponse(
       request,

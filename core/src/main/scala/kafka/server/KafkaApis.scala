@@ -177,7 +177,8 @@ class KafkaApis(val requestChannel: RequestChannel,
 
     try {
       val apiKey = request.header.apiKey;
-      trace(s"EVENT-HUBS: $apiKey ${request.loggableRequest.data()}")
+      val clientId = request.header.clientId()
+      trace(s"EVENT-HUBS: (clientId: $clientId) $apiKey ${request.loggableRequest.data()}")
 
       trace(s"Handling request:${request.requestDesc(true)} from connection ${request.context.connectionId};" +
         s"securityProtocol:${request.context.securityProtocol},principal:${request.context.principal}")
